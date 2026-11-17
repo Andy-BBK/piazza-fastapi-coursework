@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 
 from database import Base
 
@@ -14,3 +14,12 @@ class User(Base):
 
     # Storage for hashed password
     hashed_password = Column(String, nullable=False)
+
+class Post(Base):
+    __tablename__ = "posts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    title = Column(String, nullable=False)
+    body = Column(String, nullable=False)

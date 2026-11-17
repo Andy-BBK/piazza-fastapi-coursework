@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 import models
 from database import engine
-from routers import auth, profile
+from routers import auth, profile, posts
 
 # Create the users table if it does not exist.
 models.Base.metadata.create_all(bind=engine)
@@ -15,6 +15,8 @@ app = FastAPI()
 app.include_router(auth.router, prefix="/auth")
 # All auth routes start with /profile.
 app.include_router(profile.router, prefix="/profile")
+# All auth routes start with posts
+app.include_router(posts.router)
 
 @app.get("/")
 def home():

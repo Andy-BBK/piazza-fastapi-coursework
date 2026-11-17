@@ -73,4 +73,5 @@ GET/health - status of Piazza working
 POST/auth/register - register a user
 POST/auth/login - login and get JWT token
 GET/profile/me - retrieve authenticated user details
+POST/posts - create a simple post for an authenticated user
 

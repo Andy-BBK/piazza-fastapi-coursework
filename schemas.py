@@ -27,3 +27,23 @@ class UserResponse(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
+
+
+# Data accepted when creating a post.
+# This schema describes the request body for POST /courses.
+class PostCreate(BaseModel):
+    # Field adds validation rules before the route function runs.
+    title: str = Field(min_length=1)
+    body: str = Field(min_length=1)
+
+
+# Data returned by the API.
+# This schema describes the response shape sent back to the client.
+class PostResponse(BaseModel):
+    id: int
+    author_id: int
+    title: str
+    body: str
+
+    # This allows Pydantic to read values from SQLAlchemy objects.
+    model_config = ConfigDict(from_attributes=True)
