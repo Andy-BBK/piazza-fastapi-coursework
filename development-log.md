@@ -62,7 +62,6 @@ Problems
 
 I didn't encounter any problems today.
 
-
 References 
 
 - Week 1 advanced cloud computing
@@ -103,10 +102,80 @@ References
 - Week 4  advanced cloud computing part 3
 - https://docs.sqlalchemy.org/en/21/orm/basic_relationships.html
 
-Github commit:
+Github commit
+
+Commit message: Add basic post creation for authenticated users
+
+Commit URL: https://github.com/Andy-BBK/piazza-fastapi-coursework/commit/2e6e36b1ce1366b312d3b16fa21ac6915ca5a0f7
+
+Author timestamp: 2026-11-17T03:01:05Z
+
+Day 4 of development
+
+GET/Post, Get/Post/{posts_id} and automated testing
+
+Today I continued on from where I left of with the Post model and added endpoints to retrieve all posts and retrieve a post by it's ID. I used Week 3 part of the ACC /course routes as a basis adapting the my posts endpoints, which I tested using docs and acheived the correct status codes. This was relatively easy to do compared to the next tasks.
+
+I also started to set up some automated tests in the same flow as the course, where weekend activity 3 focused on API testing with pytest and week 4 homework 1 focused on testing the authentication API. I left other elements of Post alone e.g. topics which I will implement another day.
+
+In line with the course content I first created an application.py file so tests can create their own database, I then setup the conftest.py file for use of temporary SQlite databases. The most challeneging parts about this was adapting the application.py file to meet the Piazza requirments, particulalry because the course code does not include routers.
+
+For the test I started with the /health endpoint which passed. I then used adapted code for password hashing, registration, login and JWT authenication. Using previous homework code to include tests for invalid tokens, expired tokens, duplicate registartion and incorrect login details.
+
+Testing
+
+Running pytest with the health endpoint resulted in:
+
+1 passed, 1 warning.
+
+After a google search on how to display a warning (pytest -W always) I got this ".venv/lib/python3.15/site-packages/fastapi/testclient.py:1
+  /Users/andybenson/Documents/Piazza-coursework/.venv/lib/python3.15/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using httpx with starlette.testclient is deprecated; install httpx2 instead.
+    from starlette.testclient import TestClient as TestClient  # noqa" which was fixed by updating the depreciated Starlette's TestClient to httpx
+
+The final results using the authentication tests came back as:
+
+12 passed in 0.51s
+
+Problems and decisions
+
+The major problem was adapting the application.py file. I initally included all the endpoints code from auth.py, posts.py, profile.py alongside the app.include_router(auth.router, prefix="/auth") etc, meaning I was doubling up on code. I pasted my code into Chatgpt and asked for help debugging in line with the AI use but not to give any code. With it's explanation I was able to refer back to the course content and see I only needed include_router() to access the code from here and included my .get("/") and .get("/health") endpoints. 
+
+When updating main I didn't replace the previous code with just the application creation code so my main.py was creating the API twice, which I rectified. 
+
+The only problem I had with conftest.py was a spelling mistake 'contest.py'.
+
+Using the logic from the course I used a temporary SQLite database so test would not interfer with users and posts in my normal databse.
+
+Refrences and assitance 
+
+University teaching materials
+
+Week 1 – FastAPI routes
+
+Week 3 – SQLAlchemy models, database sessions, queries and Pydantic
+
+Week 4 – Registration, password hashing and JWT authentication
+
+External learning resources
+
+KodeKloud, Python API Development with FastAPI — Get Post By ID (SQLAlchemy)
+
+KodeKloud — FastAPI TestClient
+
+KodeKloud — Setup Test Database
+
+KodeKloud — Setup Test Database With Fixtures
+
+AI assistance
+
+I used ChatGPT to help understand the relationship between the application factory, database dependencies and pytest fixtures, and to help debug my code.
+
+Github commit
 
 Commit message:
 
 Commit URL:
 
-Author timestamp:
+Author time stamp
+
+

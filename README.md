@@ -74,4 +74,18 @@ POST/auth/register - register a user
 POST/auth/login - login and get JWT token
 GET/profile/me - retrieve authenticated user details
 POST/posts - create a simple post for an authenticated user
+GET/posts - Retrieve all posts
+GET/posts/{posts_id} - Retrieve a post by its ID
+
+Automated tests
+
+pytest and FastAPI's TestClient are used for automated testing.
+
+Tests use a temporary SQLite database to not affect the orginal database.
+
+Run test from project root using:
+
+python -m pytest -v
+
+Tests are located in a test folder.
 
